@@ -1,9 +1,10 @@
 //
+
+//
 //  PasscodeViewController.m
 //  LTHPasscodeViewController
 //
 //  Created by Roland Leth on 9/6/13.
-//  Modified by Ankish Jain
 //  Copyright (c) 2013 Roland Leth. All rights reserved.
 //
 
@@ -48,7 +49,7 @@ options:NSNumericSearch] != NSOrderedAscending)
 
 // [UIApplication sharedApplication].keyWindow
 #define LTHMainWindow [UIApplication sharedApplication].windows[0]
-#define LTHiPADFrame CGRectMake(0, 0, 320, 480)
+#define LTHiPADFrame self.view.frame//CGRectMake(0, 0, 320, 480)
 
 @interface LTHPasscodeViewController () <UITextFieldDelegate>
 @property (nonatomic, strong) UIView      *coverView;
@@ -89,7 +90,6 @@ options:NSNumericSearch] != NSOrderedAscending)
 @property (nonatomic, assign) BOOL        isUsingTouchID;
 @property (nonatomic, assign) BOOL        useFallbackPasscode;
 @property (nonatomic, assign) BOOL        isAppNotificationsObserved;
-@property (weak, nonatomic) IBOutlet UILabel *label;
 
 #if !(TARGET_IPHONE_SIMULATOR)
 @property (nonatomic, strong) LAContext   *context;
@@ -411,6 +411,7 @@ options:NSNumericSearch] != NSOrderedAscending)
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = _backgroundColor;
+    self.edgesForExtendedLayout=UIRectEdgeTop;
 
     _backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [self.view addSubview:_backgroundImageView];
@@ -418,12 +419,11 @@ options:NSNumericSearch] != NSOrderedAscending)
 
     _failedAttempts = 0;
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
-        _animatingView = [[UIView alloc] initWithFrame: LTHiPADFrame];
+        _animatingView = [[UIView alloc] initWithFrame: self.view.frame];
     }
     else{
         _animatingView = [[UIView alloc] initWithFrame: self.view.frame];
     }
-
     [self.view addSubview: _animatingView];
 
     [self _setupViews];
@@ -453,7 +453,8 @@ options:NSNumericSearch] != NSOrderedAscending)
         [_passcodeTextField becomeFirstResponder];
     }
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
-        self.view.frame=LTHiPADFrame;
+        self.animatingView.frame=LTHiPADFrame;
+        [self.animatingView setNeedsLayout];
     }
 }
 
@@ -616,7 +617,6 @@ options:NSNumericSearch] != NSOrderedAscending)
     [_animatingView addSubview:_complexPasscodeOverlayView];
 }
 
-
 - (void)_setupLabels {
     _enterPasscodeLabel = [[UILabel alloc] initWithFrame: CGRectZero];
     _enterPasscodeLabel.backgroundColor = _enterPasscodeLabelBackgroundColor;
@@ -624,6 +624,7 @@ options:NSNumericSearch] != NSOrderedAscending)
     _enterPasscodeLabel.textColor = _labelTextColor;
     _enterPasscodeLabel.font = _labelFont;
     _enterPasscodeLabel.textAlignment = NSTextAlignmentCenter;
+    _enterPasscodeLabel.adjustsFontSizeToFitWidth=YES;
     [_animatingView addSubview: _enterPasscodeLabel];
 
     // It is also used to display the "Passcodes did not match" error message
@@ -636,6 +637,8 @@ options:NSNumericSearch] != NSOrderedAscending)
     _failedAttemptLabel.textColor = _failedAttemptLabelTextColor;
     _failedAttemptLabel.font = _labelFont;
     _failedAttemptLabel.textAlignment = NSTextAlignmentCenter;
+    _failedAttemptLabel.adjustsFontSizeToFitWidth=YES;
+
     [_animatingView addSubview: _failedAttemptLabel];
 
     _enterPasscodeLabel.text = _isUserChangingPasscode ? LTHPasscodeViewControllerStrings(self.enterOldPasscodeString) : LTHPasscodeViewControllerStrings(self.enterPasscodeString);
@@ -725,7 +728,7 @@ options:NSNumericSearch] != NSOrderedAscending)
     // Usually, lockscreens on iPhone are kept portrait-only, though. It also doesn't fit inside a modal when landscape.
     // That's why only portrait is selected for iPhone's supported orientations.
     // Modify this to fit your needs.
-
+    _verticalOffset=-50;
     CGFloat yOffsetFromCenter = -self.view.frame.size.height * 0.24 + _verticalOffset;
     NSLayoutConstraint *enterPasscodeConstraintCenterX =
     [NSLayoutConstraint constraintWithItem: _enterPasscodeLabel
@@ -1047,18 +1050,18 @@ options:NSNumericSearch] != NSOrderedAscending)
     }
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ){
 
-        _animatingView.frame=LTHiPADFrame;
-        [self.view layoutSubviews];
-        navController.modalPresentationStyle=UIModalPresentationFormSheet;
-        navController.preferredContentSize = CGSizeMake(252, 174);
 
-        UIPopoverPresentationController *popover = navController.popoverPresentationController;
+        navController.modalPresentationStyle=UIModalPresentationFormSheet;
+        //navController.preferredContentSize = CGSizeMake(252, 174);
+        //_animatingView.frame=LTHiPADFrame;
+        // [self.view layoutSubviews];
+        //        UIPopoverPresentationController *popover = navController.popoverPresentationController;
         CGRect frame = LTHiPADFrame;
-        navController.preferredContentSize = CGSizeMake(CGRectGetWidth(frame), CGRectGetHeight(frame));
-        popover.delegate = (id)self;
-        popover.sourceView = self.view;
-        popover.sourceRect = CGRectMake(100, 100, 0, 0);
-        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        //navController.preferredContentSize = CGSizeMake(320, 480);
+        //        popover.delegate = (id)self;
+        //        popover.sourceView = self.view;
+        //        popover.sourceRect = CGRectMake(100, 100, 0, 0);
+        //        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
         [viewController presentViewController:navController animated:YES completion:nil];
     }
     else{

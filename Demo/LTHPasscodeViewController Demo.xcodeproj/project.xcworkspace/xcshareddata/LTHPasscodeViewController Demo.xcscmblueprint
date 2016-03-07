@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3E02169055262138F7D692446C25677927AC13EE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3E02169055262138F7D692446C25677927AC13EE" : 0,
+    "6B541BCA0225AE33F0D861E9BDAC08FEC49329AB" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "85BDF997-1CA5-4D56-B2DA-E02481270639",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3E02169055262138F7D692446C25677927AC13EE" : "LTHPasscodeViewController\/",
+    "6B541BCA0225AE33F0D861E9BDAC08FEC49329AB" : "..\/..\/..\/.."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "LTHPasscodeViewController Demo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Demo\/LTHPasscodeViewController Demo.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:mokriya\/LTHPasscodeViewController.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3E02169055262138F7D692446C25677927AC13EE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mokriya\/power_monitors.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6B541BCA0225AE33F0D861E9BDAC08FEC49329AB"
+    }
+  ]
+}
