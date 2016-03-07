@@ -411,7 +411,6 @@ options:NSNumericSearch] != NSOrderedAscending)
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = _backgroundColor;
-    self.edgesForExtendedLayout=UIRectEdgeTop;
 
     _backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [self.view addSubview:_backgroundImageView];
@@ -952,6 +951,20 @@ options:NSNumericSearch] != NSOrderedAscending)
 
 
 - (void)showLockScreenWithAnimation:(BOOL)animated withLogout:(BOOL)hasLogout andLogoutTitle:(NSString*)logoutTitle {
+
+    if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
+        self.view.frame=CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.frame.size.width, [UIApplication sharedApplication].keyWindow.frame.size.height);
+        self.animatingView.frame=LTHiPADFrame;
+        //[self.animatingView setNeedsLayout];
+        self.animatingView.backgroundColor=[UIColor grayColor];
+        NSLog(@"rect %@",NSStringFromCGRect(self.view.frame));
+
+        NSLog(@"rect %@",NSStringFromCGRect(self.animatingView.frame));
+        self.animatingView.frame=CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
+        [self.view layoutSubviews];
+    }
+
+
     [self _prepareAsLockScreen];
 
     // In case the user leaves the app while the lockscreen is already active.
@@ -1056,7 +1069,7 @@ options:NSNumericSearch] != NSOrderedAscending)
         //_animatingView.frame=LTHiPADFrame;
         // [self.view layoutSubviews];
         //        UIPopoverPresentationController *popover = navController.popoverPresentationController;
-        CGRect frame = LTHiPADFrame;
+        //CGRect frame = LTHiPADFrame;
         //navController.preferredContentSize = CGSizeMake(320, 480);
         //        popover.delegate = (id)self;
         //        popover.sourceView = self.view;
