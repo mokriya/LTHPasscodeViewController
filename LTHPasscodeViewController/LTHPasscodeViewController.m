@@ -955,11 +955,6 @@ options:NSNumericSearch] != NSOrderedAscending)
     if ( UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ) {
         self.view.frame=CGRectMake(0, 0, [UIApplication sharedApplication].keyWindow.frame.size.width, [UIApplication sharedApplication].keyWindow.frame.size.height);
         self.animatingView.frame=LTHiPADFrame;
-        //[self.animatingView setNeedsLayout];
-        self.animatingView.backgroundColor=[UIColor grayColor];
-        NSLog(@"rect %@",NSStringFromCGRect(self.view.frame));
-
-        NSLog(@"rect %@",NSStringFromCGRect(self.animatingView.frame));
         self.animatingView.frame=CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
         [self.view layoutSubviews];
     }
